@@ -1,3 +1,10 @@
-.my-button {
-    outline: 2px solid brown;
+.sw-button {
+    background-color: #e7d300;
+    border-radius: 2px;
+    border: 0;
+    padding: .5em 1.5em;
+}
+
+.sw-button.raised {
+    box-shadow: 0 0.1em 0.3em rgba(166, 169, 179, .8);
 }
