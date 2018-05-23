@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
 
 import Button from './components/Button';
 
 class App extends Component {
   state = {
-    count: 0,
-    firstName: '',
-    lastName: '',
-    affilliation: '',
-    homePlanet: '',
     characters: [],
+    planets: [],
   };
   
   inputs = [
@@ -32,29 +29,57 @@ class App extends Component {
     },
   ];
   
+  componentWillMount() {
+    axios.get('https://swapi.co/api/people/')
+      .then(response => {
+        this.setState({
+          characters: [
+            ...response.data.results,
+          ],
+        })
+      })
+      .catch(err => console.warn(err));
+      
+      axios.get('https://swapi.co/api/planets/')
+        .then(response => {
+          this.setState({
+            planets: [
+              ...response.data.results,
+            ]
+          })
+        })
+        .catch(err => console.warn(err));
+  }
+  
   render() {
     const characterList = this.state.characters
       .map((c, i) => (
-        <li key={`characters-${i}`}>{ c.firstName } { c.lastName } | { c.affilliation } | { c.homePlanet }</li>
+        <li key={`characters-${i}`}>{ c.name } | { c.hair_color } | { c.birth_year }</li>
       ));
+      
+      const planetList = this.state.planets.map((p, i)=> (
+        <li key={`planets-${i}`}>{ p.name } | { p.population }</li>
+      ));
+      
+      
     
-    const inputs = this.inputs
-      .map((input, i) => (
-        <div key={`new-character-form-${i}`}>
-          <label>
-            {input.label}:
-            <input
-                type="text"
-                value={this.state[input.property]}
-                onChange={e => this.handleChange(e, input.property)}
-                name={input.property} />
-          </label>
-        </div>
-      ));
+    // const inputs = this.inputs
+    //   .map((input, i) => (
+    //     <div key={`new-character-form-${i}`}>
+    //       <label>
+    //         {input.label}:
+    //         <input
+    //             type="text"
+    //             value={this.state[input.property]}
+    //             onChange={e => this.handleChange(e, input.property)}
+    //             name={input.property} />
+    //       </label>
+    //     </div>
+    //   ));
     
     return (
       <div className="App">
-        <form name="add-character-form">
+        {/* <form name="add-character-form"> */}
           {/* <label>
             Name:
             <input type="text" value={this.state.name} onChange={e => this.handleChange(e, 'name')} name="name" />
@@ -70,16 +95,19 @@ class App extends Component {
             <input type="text" value={this.state.homePlanet} onChange={e => this.handleChange(e, 'homePlanet')} name="homePlanet" />
           </label><br/> */}
           
-          {inputs}
+          {/* {inputs}
           
-          <button type="submit" onClick={e => this.handleSubmit(e)}>
+          <Button className="raised" type="submit" onClick={e => this.handleSubmit(e)}>
             Submit
-          </button>
-        </form>
+          </Button>
+        </form> */}
         
         <ul>
           {characterList}
         </ul>
+        <ol>
+          {planetList}
+        </ol>
         
         {/* <Button
             // text={this.state.count}
