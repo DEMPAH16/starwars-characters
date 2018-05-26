@@ -66,11 +66,18 @@ class NewCharacterForm extends Component {
               {inputs}
               
               <Button
-                  className="raised"
+                  className="raised primary"
                   type="submit"
                   onClick={e => this.handleSubmit(e)}
               >
                 Submit
+              </Button>
+              
+              <Button
+                  className="raised"
+                  onClick={e => {e.preventDefault() ; this.props.onCancel && this.props.onCancel(e)}}
+              >
+                Cancel
               </Button>
             </form>
         );

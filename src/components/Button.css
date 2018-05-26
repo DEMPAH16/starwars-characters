@@ -1,8 +1,17 @@
 .sw-button {
-    background-color: #e7d300;
     border-radius: 2px;
     border: 0;
     padding: .5em 1.5em;
+    cursor: pointer;
+}
+
+.sw-button.primary {
+    background-color: #e7d300;
+}
+
+.sw-button.warn {
+    background-color: #b60b0b;
+    color: #fff;
 }
 
 .sw-button.raised {
