@@ -2,156 +2,144 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 
+import NewCharacterForm from './components/NewCharacterForm';
 import Button from './components/Button';
 
 class App extends Component {
   state = {
+    character: null,
+    characterIndex: -1,
+    makeNewCharacter: false,
     characters: [],
-    planets: [],
+    // planets: [],
   };
   
-  inputs = [
-    {
-      label: 'First Name',
-      property: 'firstName',
-    },
-    {
-      label: 'Last Name',
-      property: 'lastName',
-    },
-    {
-      label: 'Affilliation',
-      property: 'affilliation',
-    },
-    {
-      label: 'Home Planet',
-      property: 'homePlanet',
-    },
-  ];
-  
   componentWillMount() {
-    axios.get('https://swapi.co/api/people/')
+    axios.get('http://localhost:3002/characters')
       .then(response => {
         this.setState({
           characters: [
-            ...response.data.results,
+            ...response.data,
           ],
         })
       })
       .catch(err => console.warn(err));
-      
-      axios.get('https://swapi.co/api/planets/')
-        .then(response => {
-          this.setState({
-            planets: [
-              ...response.data.results,
-            ]
-          })
-        })
-        .catch(err => console.warn(err));
+    
+    // axios.get('https://swapi.co/api/planets/')
+    //   .then(response => {
+    //     this.setState({
+    //       planets: [
+    //         ...response.data.results,
+    //       ]
+    //     })
+    //   })
+    //   .catch(err => console.warn(err));
   }
   
   render() {
     const characterList = this.state.characters
       .map((c, i) => (
-        <li key={`characters-${i}`}>{ c.name } | { c.hair_color } | { c.birth_year }</li>
+        <li
+            key={`characters-${i}`}
+            onClick={() => this.editCharacter(c, i)}
+        >
+          { c.name } | { c.title } | { c.affilliation } | { c.homePlanet }
+          <br />
+          <Button onClick={e => {e.stopPropagation() ; this.deleteCharacter(i)}}>Remove</Button>
+        </li>
       ));
       
-      const planetList = this.state.planets.map((p, i)=> (
-        <li key={`planets-${i}`}>{ p.name } | { p.population }</li>
-      ));
-      
-      
+    // const planetList = this.state.planets.map((p, i)=> (
+    //   <li key={`planets-${i}`}>{ p.name } | { p.population }</li>
+    // ));
     
-    // const inputs = this.inputs
-    //   .map((input, i) => (
-    //     <div key={`new-character-form-${i}`}>
-    //       <label>
-    //         {input.label}:
-    //         <input
-    //             type="text"
-    //             value={this.state[input.property]}
-    //             onChange={e => this.handleChange(e, input.property)}
-    //             name={input.property} />
-    //       </label>
-    //     </div>
-    //   ));
+    const newCharacterForm = (this.state.makeNewCharacter || this.state.character) &&
+        <NewCharacterForm
+            character={this.state.character || {}}
+            onSubmit={
+              this.state.character ?
+                (e, update) => this.updateCharacter(e, update) :
+                (e, nc) => this.handleSubmit(e, nc)
+            } />;
     
     return (
       <div className="App">
-        {/* <form name="add-character-form"> */}
-          {/* <label>
-            Name:
-            <input type="text" value={this.state.name} onChange={e => this.handleChange(e, 'name')} name="name" />
-          </label><br/>
-          
-          <label>
-            Affilliation:
-            <input type="text" value={this.state.affilliation} onChange={e => this.handleChange(e, 'affilliation')} name="affilliation" />
-          </label><br/>
-          
-          <label>
-            Home planet:
-            <input type="text" value={this.state.homePlanet} onChange={e => this.handleChange(e, 'homePlanet')} name="homePlanet" />
-          </label><br/> */}
-          
-          {/* {inputs}
-          
-          <Button className="raised" type="submit" onClick={e => this.handleSubmit(e)}>
-            Submit
-          </Button>
-        </form> */}
+        {
+          (!this.state.makeNewCharacter && !this.state.character) &&
+            <Button onClick={() => this.showNewCharacterForm()}>
+              Add a New Character
+            </Button>
+        }
+        
+        { newCharacterForm }
         
         <ul>
           {characterList}
         </ul>
-        <ol>
+        {/* <ol>
           {planetList}
-        </ol>
-        
-        {/* <Button
-            // text={this.state.count}
-            doThisWhenClicked={() => this.addOne()}
-        >
-          Count: {this.state.count}
-        </Button>
-        
-        <Button
-            children="this.state.count"
-            doThisWhenClicked={() => console.log('something different')} /> */}
+        </ol> */}
       </div>
     );
   }
   
-  handleSubmit(e) {
+  handleSubmit(e, newCharacter) {
     e.preventDefault();
     
-    const { firstName, lastName, affilliation, homePlanet } = this.state;
-    
-    const characters = [
-      ...this.state.characters,
-      { firstName, lastName, affilliation, homePlanet },
-    ];
-    
+    return axios.post('/characters', newCharacter)
+      .then(response => {
+        const characters = [
+          ...this.state.characters,
+          response.data,
+        ];
+        
+        this.setState({
+          characters,
+          makeNewCharacter: false,
+        });
+      })
+      .catch(err => {
+        console.warn('character couldn\'t be added');
+        console.info(err);
+        throw err;
+      });
+  }
+  
+  showNewCharacterForm() {
     this.setState({
-      characters,
-      firstName: '',
-      lastName: '',
-      affilliation: '',
-      homePlanet: '',
+      makeNewCharacter: true,
     });
   }
   
-  handleChange(event, name) {
-    // const { target: { value } } = event;
-    const value = event.target.value;
-    this.setState({ [name]: value });
+  editCharacter(character, index) {
+    this.setState({
+      character,
+      characterIndex: index,
+    });
   }
   
-  addOne() {
-    this.setState({
-      count: this.state.count + 1,
-    });
+  updateCharacter(e, character) {
+    return axios.patch('/characters/' + this.state.characterIndex, character)
+      .then(response => {
+        const characters = this.state.characters.slice();
+        
+        characters[this.state.characterIndex] = response.data;
+        
+        this.setState({
+          character: null,
+          characterIndex: -1,
+          characters,
+        });
+      })
+  }
+  
+  deleteCharacter(index) {
+    axios.delete('/characters/' + index)
+      .then(() => {
+        this.setState({
+          characters: this.state.characters.filter((c, i) => i != index),
+        });
+      });
   }
 }
 
