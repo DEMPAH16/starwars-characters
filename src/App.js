@@ -16,7 +16,7 @@ class App extends Component {
   };
   
   componentWillMount() {
-    axios.get('http://localhost:3002/characters')
+    axios.get('http://localhost:3002/characters?search=')
       .then(response => {
         this.setState({
           characters: [
@@ -67,6 +67,12 @@ class App extends Component {
       <div className="App">
       
         <Header></Header>
+        
+        <form onSubmit={e => this.filterCharacters(e)}>
+          <input ref="query" name="search" />
+          
+          <Button type="submit">Submit</Button>
+        </form>
       
         {
           (!this.state.makeNewCharacter && !this.state.character) &&
@@ -83,9 +89,6 @@ class App extends Component {
               {characterList}
             </ul>
         }
-        {/* <ol>
-          {planetList}
-        </ol> */}
       </div>
     );
   }
@@ -159,6 +162,20 @@ class App extends Component {
         this.setState({
           characters: this.state.characters.filter((c, i) => i != index),
         });
+      });
+  }
+  
+  filterCharacters(e) {
+    e.preventDefault();
+    
+    axios.get(`/characters?search=${this.refs.query.value}`)
+      .then(response => {
+        this.setState({
+          characters: response.data,
+        });
+      })
+      .catch(err => {
+        console.info(err);
       });
   }
 }

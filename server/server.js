@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+require('dotenv').config({
+    path: __dirname + '/../.env',
+});
+
 const app = express();
 
 const characters = [
@@ -29,8 +33,17 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../build'));
 
-app.get('/characters', (req, res, next) => {
-    res.send(characters);
+
+
+app.get('/characters', (req, res) => {
+    const characterList = characters.filter(character => {
+        const search = req.query.search.toLowerCase();
+        return character.name.toLowerCase().includes(search) ||
+            character.title.toLowerCase().includes(search) ||
+            character.homePlanet.toLowerCase().includes(search) ||
+            character.affilliation.toLowerCase().includes(search);
+    });
+    res.send(characterList);
 });
 
 app.post('/characters', (req, res) => {
@@ -58,7 +71,7 @@ app.delete('/characters/:id', (req, res) => {
     res.sendStatus(204);
 });
 
-const port = 3002;
+const port = process.env.SERVER_PORT || 3002;
 
 app.listen(port, () => {
     console.log(`Server listening at localhost:${port}`);
