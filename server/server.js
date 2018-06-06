@@ -46,6 +46,19 @@ app.get('/characters', (req, res) => {
     res.send(characterList);
 });
 
+app.get('/characters/:id', (req, res) => {
+    const { id } = req.params;
+    const character = characters[id];
+    
+    if (!character) {
+        return res.status(404).send({
+            message: 'No character found with id ' + id,
+        });
+    }
+    
+    res.send(character);
+});
+
 app.post('/characters', (req, res) => {
     const newCharacter = req.body;
     

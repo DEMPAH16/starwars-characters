@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 
-import NewCharacterForm from './components/NewCharacterForm';
-import Button from './components/Button';
-import Header from './components/Header';
-import ItemSummary from './components/ItemSummary';
+import NewCharacterForm from './components/NewCharacterForm/NewCharacterForm';
+import Button from './components/Button/Button';
+import Header from './components/Header/Header';
+import ItemSummary from './components/ItemSummary/ItemSummary';
+
 class App extends Component {
   state = {
     character: null,
