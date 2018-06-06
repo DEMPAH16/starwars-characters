@@ -3,9 +3,9 @@ import Button from '../Button/Button'
 import './ItemSummary.css'
 
 const ItemSummary= (props)=> {
-    const {name, title, affilliation, homePlanet, removeItem, clickItem} = props;
+    const {name, title, affilliation, homePlanet, removeItem} = props;
     return (
-      <li onClick= {clickItem} className="item-summary">
+      <li className="item-summary">
         <h3>{ name }</h3> 
         { title } | { affilliation } | { homePlanet }
         <br />
