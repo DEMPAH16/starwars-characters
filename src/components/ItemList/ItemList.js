@@ -24,8 +24,11 @@ class ItemList extends Component {
     render() {
         const items = this.state.items
             .map((item, i) => (
-                <Link to={`/character/${i}`} key={`item-list-${i}`}>
-                    <ItemSummary {...item} removeItem={() => {}} />
+                <Link className="no-link" to={`/character/${item.id}`} key={`item-list-${i}`}>
+                    <ItemSummary
+                        {...item}
+                        editItem={(e) => { e.preventDefault(); this.editItem(item.id) }}
+                        removeItem={(e) => {e.preventDefault(); this.removeItem(item.id) }} />
                 </Link>
             ))
         
@@ -37,7 +40,7 @@ class ItemList extends Component {
                         value={this.state.searchText}
                         onChange={e => this.handleFilterChange(e)} />
                     
-                    <Button>Search</Button>
+                    <Button onClick={() => this.filterItems()}>Search</Button>
                     
                     <Link to="/character/new">
                         <Button className="primary raised">Add New Character</Button>
@@ -55,6 +58,36 @@ class ItemList extends Component {
         this.setState({
             searchText: e.target.value,
         });
+    }
+    
+    filterItems() {
+        axios
+            .get(`/characters?search=${this.state.searchText}`)
+            .then(response => {
+                this.setState({
+                    items: response.data,
+                });
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+    
+    removeItem(id) {
+        axios
+            .delete(`/characters/${id}`)
+            .then(() => {
+                this.setState({
+                    items: this.state.items.filter(c => c.id != id),
+                });
+            })
+            .catch(err => {
+                console.warn(err);
+            });
+    }
+    
+    editItem(id) {
+        this.props.history.push(`/character/edit/${id}`);
     }
 }
 

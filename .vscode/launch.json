@@ -8,7 +8,13 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\server\\server.js"
+            "program": "${workspaceFolder}/server/server.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run DB Script",
+            "program": "${workspaceFolder}/run-query.js"
         }
     ]
 }

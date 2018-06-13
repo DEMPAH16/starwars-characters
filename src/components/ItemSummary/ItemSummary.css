@@ -10,3 +10,9 @@
 .item-summary button {
     margin-top: 7px;
 }
+
+.item-summary img {
+    display: block;
+    margin: 0 auto;
+    max-width: 80%;
+}
