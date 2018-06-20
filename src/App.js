@@ -10,6 +10,8 @@ import AddItem from './components/AddItem/AddItem';
 import ItemDetails from './components/ItemDetails/ItemsDetails';
 import User from './components/User/User';
 import EditItem from './components/EditItem/EditItem';
+import LoginPage from './components/LoginPage/LoginPage';
+import RegisterPage from './components/RegisterPage/RegisterPage';
 
 class App extends Component {
   render() {
@@ -20,6 +22,8 @@ class App extends Component {
           
           <Switch>
             <Route path="/" exact component={ItemList} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
             <Route path="/user" component={User} />
             <Route path="/character/new" component={AddItem} />
             <Route path="/character/edit/:id" component={EditItem} />

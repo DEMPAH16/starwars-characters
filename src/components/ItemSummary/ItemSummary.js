@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../Button/Button'
 import './ItemSummary.css'
 
-const ItemSummary= (props)=> {
+const ItemSummary= (props) => {
     const {
       name,
       title,

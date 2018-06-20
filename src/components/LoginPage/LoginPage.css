@@ -1,0 +1,23 @@
+.login-page-component {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100vh - 60px);
+}
+
+.login-page-component > form {
+    border: 1px solid #383838;
+    margin-bottom: .7em;
+    padding: 30px;
+}
+
+.input-row {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.input-row .input {
+    display: flex;
+    flex-direction: column;
+}
