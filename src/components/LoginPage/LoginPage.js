@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 
 import './LoginPage.css';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import Button from '../Button/Button';
+import { LOGIN } from '../../redux/actions/user-actions';
 
 class LoginPage extends Component {
     state = {
@@ -12,6 +15,10 @@ class LoginPage extends Component {
     };
     
     render() {
+        if (this.props.currentUser.username) {
+            return <Redirect to="/" />;
+        }
+        
         return (
             <div className="login-page-component">
                 <form className="login-box" onSubmit={e => this.handleSubmit(e)}>
@@ -37,7 +44,7 @@ class LoginPage extends Component {
                                 value={this.state.password} />
                         </div>
                     </div>
-                    <Button type="submit">Log in</Button>
+                    <Button className="raised primary" type="submit">Log in</Button>
                 </form>
                 
                 <Link to="/register">Don't have an account? Register!</Link>
@@ -52,15 +59,20 @@ class LoginPage extends Component {
     handleSubmit(e) {
         e.preventDefault();
         
-        axios
-            .post('/login', this.state)
-            .then(user => {
-                //?
-            })
-            .catch(err => {
-                console.warn(err);
-            });
+        this.props.dispatch({
+            type: LOGIN,
+            payload: this.state,
+        });
+        
+        // axios
+        //     .post('/login', this.state)
+        //     .then(user => {
+        //         //?
+        //     })
+        //     .catch(err => {
+        //         console.warn(err);
+        //     });
     }
 }
 
-export default LoginPage;
+export default connect(({ currentUser }) => ({ currentUser }))(LoginPage);
