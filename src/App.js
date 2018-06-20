@@ -12,6 +12,7 @@ import User from './components/User/User';
 import EditItem from './components/EditItem/EditItem';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
+import Themer from './components/Themer/Themer';
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
             <Route path="/character/new" component={AddItem} />
             <Route path="/character/edit/:id" component={EditItem} />
             <Route path="/character/:id" component={ItemDetails} />
+            <Route path="/themer" component={Themer} />
             {/* <Route render={() => <Redirect to="/" />} /> */}
             <Route render={() => <p>Not found</p>} />
           </Switch>
