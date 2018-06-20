@@ -12,3 +12,9 @@ header h1{
     margin: 0px;
     padding: 0px;
 }
+
+header :visited,
+header :link {
+    color: inherit;
+    text-decoration: none;
+}
