@@ -44,7 +44,7 @@ const ItemSummary= (props) => {
         </div>
         
         <div className="quantity">
-          { (quantity && quantity < 15)  && <p>Hurry!  Only { quantity } item{ quantity !== 1 && 's'} left!</p> }
+          { (quantity && quantity < 15) && <p>Hurry!  Only { quantity } item{ quantity !== 1 && 's'} left!</p> }
         </div>
         
         <div className="tags">
