@@ -39,7 +39,7 @@ function headerBackgroundColor(color = 'black', action) {
     }
 }
 
-function defaultButtonColor(color = 'gray', action) {
+function defaultButtonColor(color = '#ddd', action) {
     console.log(action.payload);
     
     switch (action.type) {

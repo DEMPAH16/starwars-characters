@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './ItemList.css';
 
 import Button from '../Button/Button';
 import ItemSummary from '../ItemSummary/ItemSummary';
@@ -34,7 +35,7 @@ class ItemList extends Component {
         
         return (
             <div className="item-list-component">
-                <div>
+                <div className="item-list-filter">
                     <input
                         type="text"
                         value={this.state.searchText}
@@ -42,7 +43,9 @@ class ItemList extends Component {
                     
                     <Button onClick={() => this.filterItems()}>Search</Button>
                     
-                    <Link to="/character/new">
+                    <span className="spacer"></span>
+                    
+                    <Link to="/character/new" className="far-right">
                         <Button className="primary raised">Add New Character</Button>
                     </Link>
                 </div>

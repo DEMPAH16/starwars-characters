@@ -20,19 +20,23 @@ const ItemSummary= (props) => {
     
     return (
       <li className="item-summary">
-        <h3>{ name }</h3> 
-        <b>Title:</b> { title }<br />
-        <b>Affilliation:</b> { affilliation }<br />
-        <b>Home Planet:</b> { home_planet }
-        
         <div>
+          <img src={image} alt={name} />
+        </div>
+        
+        <h3>{ name }</h3> 
+        <div className="subtext title-subtext">
+          { title }
+        </div>
+        <div className="subtext">
+          <b>Affilliation:</b> { affilliation }<br />
+          <b>Home Planet:</b> { home_planet }
+        </div>
+        
+        <div className="item-description">
           <h4>Description:</h4>
           
           <p>{ description }</p>
-        </div>
-        
-        <div>
-          <img src={image} alt={name} />
         </div>
         
         <div>
@@ -47,9 +51,10 @@ const ItemSummary= (props) => {
           { is_new && <b>New!</b> }
           { is_on_sale && <b>Sale!</b> }
         </div>
-        <br />
-        <Button className="raised" onClick={editItem}>Edit</Button>
-        <Button className="warn raised" onClick={removeItem}>Remove</Button>
+        <div className="item-controls">
+          <Button className="raised" onClick={editItem}>Edit</Button>
+          <Button className="warn raised" onClick={removeItem}>Remove</Button>
+        </div>
       </li>
     );
 };

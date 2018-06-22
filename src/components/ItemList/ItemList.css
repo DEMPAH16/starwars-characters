@@ -1,0 +1,20 @@
+.item-list-component {
+    padding: 0 50px;
+}
+
+.item-list-component .item-list-filter {
+    display: flex;
+    margin-bottom: 2em;
+}
+
+.item-list-component .item-list-filter input {
+    width: 30em;
+}
+
+.item-list-component .item-list-filter button {
+    margin-left: 15px;
+}
+
+.item-list-component .item-list-filter .spacer {
+    flex: 1;
+}
