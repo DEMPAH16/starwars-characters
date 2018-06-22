@@ -59,19 +59,18 @@ class LoginPage extends Component {
     handleSubmit(e) {
         e.preventDefault();
         
-        this.props.dispatch({
-            type: LOGIN,
-            payload: this.state,
-        });
-        
-        // axios
-        //     .post('/login', this.state)
-        //     .then(user => {
-        //         //?
-        //     })
-        //     .catch(err => {
-        //         console.warn(err);
-        //     });
+        axios
+            .post('/auth/login', this.state)
+            .then(response => {
+                this.props.dispatch({
+                    type: LOGIN,
+                    payload: response.data,
+                });
+                this.props.history.push('/');
+            })
+            .catch(err => {
+                console.warn(err);
+            });
     }
 }
 

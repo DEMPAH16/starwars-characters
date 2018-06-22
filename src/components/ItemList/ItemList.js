@@ -19,6 +19,11 @@ class ItemList extends Component {
                 this.setState({
                     items: response.data,
                 });
+            })
+            .catch(err => {
+                if (err.response.status == 401) {
+                    this.props.history.push('/login');
+                }
             });
     }
     
