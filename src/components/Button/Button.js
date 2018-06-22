@@ -8,10 +8,10 @@ const Button = ({ dispatch, defaultButtonColor, children, className = '', ...res
         className={`sw-button ${ className || '' }`}
         style={{
             backgroundColor: (
-              !className.includes('primary') || !className.includes('warn')
+              !className.includes('primary') && !className.includes('warn')
             ) && defaultButtonColor,
         }}
-      >
+    >
       {children}
     </button>
 );
