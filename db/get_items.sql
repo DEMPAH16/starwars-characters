@@ -1,3 +1,3 @@
 SELECT *
-FROM "Characters"
+FROM "Products"
 ORDER BY id ASC;

@@ -6,7 +6,7 @@ const CharacterRouter = express.Router();
 
 CharacterRouter.get('/', (req, res, next) => {
     const query = req.query.search ? 
-        req.db.Characters
+        req.db.Products
             .search({
                 fields: [ 'name', 'title', 'affilliation', 'home_planet', 'description' ],
                 term: req.query.search.toLowerCase(),
@@ -30,7 +30,7 @@ CharacterRouter.get('/', (req, res, next) => {
 CharacterRouter.get('/:id', (req, res, next) => {
     const { id } = req.params;
     
-    req.db.Characters
+    req.db.Products
         .find(+id)
         .then(character => {
             if (!character) {
@@ -50,7 +50,7 @@ CharacterRouter.get('/:id', (req, res, next) => {
 CharacterRouter.post('/', authenticationCheck(), (req, res, next) => {
     const newCharacter = req.body;
     
-    req.db.Characters
+    req.db.Products
         .insert(newCharacter)
         .then(character => {
             res.send(character);
@@ -65,7 +65,7 @@ CharacterRouter.patch('/:id', authenticationCheck(), (req, res, next) => {
     const { id } = req.params;
     const characterUpdate = req.body;
     
-    req.db.Characters
+    req.db.Products
         .update(+id, characterUpdate)
         .then(character => {
             res.send(character);
@@ -80,7 +80,7 @@ CharacterRouter.patch('/:id', authenticationCheck(), (req, res, next) => {
 CharacterRouter.delete('/:id', authenticationCheck(), (req, res, next) => {
     const { id } = req.params;
     
-    req.db.Characters
+    req.db.Products
         .destroy(+id)
         .then(character => {
             res.send(character);

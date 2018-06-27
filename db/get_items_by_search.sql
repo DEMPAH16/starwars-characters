@@ -1,6 +1,6 @@
 -- concept only; doesn't work
 SELECT *
-FROM "Characters"
+FROM "Products"
 WHERE name ILIKE '%$1%'
    OR title ILIKE '%$1%'
    OR affilliation ILIKE '%$1%'
