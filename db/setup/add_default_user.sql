@@ -13,4 +13,4 @@ VALUES (
     'jedigrandmaster',
     'password',
     'admin@starwarscharacterproject.com'
-)
+);
