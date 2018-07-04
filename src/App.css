@@ -1,14 +1,6 @@
 .app-component {
   padding-top: 60px;
 }
-.item-list{
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 380px);
-  justify-content: center;
-  grid-gap: 20px
-}
 
 .no-link,
 .no-link:visited,

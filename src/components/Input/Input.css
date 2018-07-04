@@ -1,0 +1,23 @@
+.input-component {
+    width: 100%;
+}
+
+.input-component label {
+    font-size: 13px;
+}
+
+.input-component label:not(.checkbox) {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-component input {
+    font-size: 1.5em;
+    margin-top: 5px;
+}
+
+@media (min-width: 520px) {
+    .input-component:not(.full-width) {
+        width: 200px;
+    }
+}

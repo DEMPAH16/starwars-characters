@@ -18,3 +18,24 @@
 .item-list-component .item-list-filter .spacer {
     flex: 1;
 }
+
+.item-list{
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 380px;
+    justify-content: center;
+    grid-gap: 20px
+}
+
+@media (min-width: 900px) {
+    .item-list {
+      grid-template-columns: repeat(2, 380px);
+    }
+}
+
+@media (min-width: 1285px) {
+    .item-list {
+      grid-template-columns: repeat(3, 380px);
+    }
+}
