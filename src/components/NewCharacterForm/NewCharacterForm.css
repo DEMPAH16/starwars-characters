@@ -1,0 +1,13 @@
+.new-character-form-component {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 420px;
+    padding: 0 50px;
+    width: 100%;
+}
+
+@media (min-width: 520px) {
+    .new-character-form-component {
+        box-sizing: content-box;
+    }
+}
