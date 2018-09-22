@@ -52,9 +52,6 @@ class LoginPage extends Component {
         );
     }
     
-    handleChange(field, value) {
-        this.setState({ [field]: value });
-    }
     
     handleSubmit(e) {
         e.preventDefault();
